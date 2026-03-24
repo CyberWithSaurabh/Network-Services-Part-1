@@ -1,0 +1,118 @@
+TryHackMe: Network Services
+📌 Room Overview
+
+The Network Services room on TryHackMe introduces the fundamental services that run on networks and how they can be enumerated during penetration testing.
+In this lab, we explore several common services such as SMB, FTP, and other network protocols, and learn how attackers enumerate these
+services using different tools.
+
+This room focuses on identifying open ports, discovering services running on them, and interacting with these services to gather useful information.
+
+🎯 Objectives
+Understand common network services
+Learn how to enumerate services
+Use tools like Nmap and SMBclient
+Identify misconfigurations in services
+
+🛠 Tools Used
+Nmap
+SMBclient
+Enum4Linux
+Hydra
+Netcat
+
+🔍 Step 1: Connect to TryHackMe VPN
+
+Before starting the lab, connect to the TryHackMe network.
+
+sudo openvpn yourvpnfile.ovpn
+
+🔎 Step 2: Network Scanning with Nmap
+
+Scan the target machine to identify open ports and running services.
+
+nmap -sC -sV <TARGET_IP>
+Explanation
+-sC → Runs default Nmap scripts
+-sV → Detects service versions
+📸 Screenshot
+
+Add your screenshot here.
+
+/screenshots/nmap_scan.png
+
+📂 Step 3: SMB Enumeration
+
+Check for SMB shares on the target system.
+
+smbclient -L //<TARGET_IP> -N
+Explanation
+-L → List available shares
+-N → No password authentication
+📸 Screenshot
+/screenshots/smb_shares.png
+
+🔍 Step 4: Enumerate SMB with Enum4Linux
+
+Enum4Linux helps extract more SMB-related information.
+
+enum4linux <TARGET_IP>
+Information Gathered
+User accounts
+Shared folders
+System information
+📸 Screenshot
+/screenshots/enum4linux_scan.png
+
+📁 Step 5: Access SMB Shares
+
+Connect to a share discovered earlier.
+
+smbclient //<TARGET_IP>/<SHARE_NAME>
+
+Example:
+
+smbclient //10.10.10.10/public
+📸 Screenshot
+/screenshots/smb_access.png
+
+🔐 Step 6: Brute Force (If Required)
+
+Use Hydra to brute force login credentials.
+
+hydra -l admin -P rockyou.txt smb://<TARGET_IP>
+📸 Screenshot
+/screenshots/hydra_attack.png
+
+📡 Step 7: Netcat Interaction
+
+Sometimes services allow direct interaction using Netcat.
+
+nc <TARGET_IP> <PORT>
+
+Example:
+
+nc 10.10.10.10 21
+📸 Screenshot
+/screenshots/netcat_connection.png
+🧠 Key Learning Points
+Network services run on specific ports
+Enumeration is a critical step in penetration testing
+Misconfigured services can expose sensitive data
+Tools like Nmap and Enum4Linux help identify vulnerabilities
+📁 Repository Structure
+Network-Services-TryHackMe
+│
+├── README.md
+└── screenshots
+    ├── nmap_scan.png
+    ├── smb_shares.png
+    ├── enum4linux_scan.png
+    ├── smb_access.png
+    ├── hydra_attack.png
+    └── netcat_connection.png
+📚 TryHackMe Room
+
+https://tryhackme.com
+
+👨‍💻 Author    Saurabh 
+Cybersecurity Enthusiast | TryHackMe Learner
